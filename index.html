@@ -29,7 +29,7 @@ function go(u){ try { location.replace(u); } catch(e) {} }
   var done = false;
   function jump(u){ if (done) return; done = true; go(u); }
   setTimeout(function(){ jump(FALLBACK); }, 2500);
-  function clean(u){ return String(u || "").replace(/^﻿/, "").replace(/\s+/g, ""); }
+  function clean(u){ return String(u || "").replace(/^\uFEFF/, "").replace(/\s+/g, ""); }
   fetch("current.json?ts=" + Date.now(), {cache: "no-store"})
     .then(function(r){ return r.json(); })
     .then(function(j){
