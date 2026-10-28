@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=https://suppose-pathology-implied-groove.trycloudflare.com/rank?token=cd2026vote">
 <title>昌都文旅宣传口号 · 网络投票</title>
 <style>
   body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
@@ -19,10 +18,22 @@
 <body>
 <div class="box">
   <h1>昌都文旅宣传口号 · 网络投票</h1>
-  <p>正在带你去投票页面…</p>
-  <a class="btn" href="https://suppose-pathology-implied-groove.trycloudflare.com/rank?token=cd2026vote">进入投票页</a>
-  <p class="tiny">如果没有自动跳转，请点上面的按钮。<br>页面更新于 2026-10-28 18:49</p>
+  <p id="hint">正在带你去排行页面…</p>
+  <a class="btn" id="go" href="https://suppose-pathology-implied-groove.trycloudflare.com/rank?token=cd2026vote">进入排行页</a>
+  <p class="tiny">如果没有自动跳转，请点上面的按钮。</p>
 </div>
-<script>location.replace("https://suppose-pathology-implied-groove.trycloudflare.com/rank?token=cd2026vote");</script>
+<script>
+var FALLBACK = "https://suppose-pathology-implied-groove.trycloudflare.com/rank?token=cd2026vote";
+function go(u){ try { location.replace(u); } catch(e) {} }
+(function(){
+  var done = false;
+  function jump(u){ if (done) return; done = true; go(u); }
+  setTimeout(function(){ jump(FALLBACK); }, 2500);
+  fetch("../current.json?ts=" + Date.now(), {cache: "no-store"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ jump(j["rank"] || FALLBACK); })
+    .catch(function(){ jump(FALLBACK); });
+})();
+</script>
 </body>
 </html>
